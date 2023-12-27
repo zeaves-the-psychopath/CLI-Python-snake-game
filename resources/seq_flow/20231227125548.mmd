@@ -1,0 +1,22 @@
+sequenceDiagram
+    participant M as Main
+    participant G as Game
+    participant S as Snake
+    participant F as Food
+    participant SC as Score
+    M->>G: start_game()
+    loop Game Loop
+        G->>S: move()
+        alt Collision with Food
+            S->>F: reposition()
+            S->>S: grow()
+            S->>SC: increase()
+        end
+        alt Collision with Wall or Self
+            G->>G: end_game()
+            M->>M: main()
+        end
+        G->>G: update_game()
+    end
+    M->>G: pause_game()
+    M->>G: resume_game()
